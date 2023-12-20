@@ -1,5 +1,5 @@
 <?php
-// funcs.phpを呼び出す
+//0. funcs.phpを呼び出す
 require_once('function.php');
 //1.  DB接続します
 try {
@@ -25,7 +25,7 @@ if ($status==false) {
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
     // .=で追記される
     $view .= "<tr>";
-    $view .= "<td>" . h($result['time']) . "</td>"."<td>". h($result['jigyousyo']) . "</td>"."<td>". h($result['officetype_a']) . "</td>" . "<td>" . h($result['officetype_b']) . "</td>" . "<td>" . h($result['officetype_ikou']) . "</td>" . "<td>" . h($result['officetype_other']) . "</td>" . "<td>" . h($result['postcode']) . "</td>" . "<td>" . h($result['prefecture']) ."</td>" . "<td>" . h($result['city']) . "</td>" . "<td>" . h($result['town']) . "</td>" . "<td>" . h($result['name']) . "</td>" . "<td>" . h($result['name_kana']) . "</td>" . "<td>" .h($result['email']) ."</td>" . "<td>" .h($result['password']) . "</td>" . "<br>";
+    $view .= "<td>" . h($result['time']) . "</td>"."<td>". '<a href="detail.php?id=' . $result['id'] . '">' . h($result['jigyousyo']) . '</a>' . "</td>"."<td>". h($result['officetype_a']) . "</td>" . "<td>" . h($result['officetype_b']) . "</td>" . "<td>" . h($result['officetype_ikou']) . "</td>" . "<td>" . h($result['officetype_other']) . "</td>" . "<td>" . h($result['postcode']) . "</td>" . "<td>" . h($result['prefecture']) ."</td>" . "<td>" . h($result['city']) . "</td>" . "<td>" . h($result['town']) . "</td>" . "<td>" . h($result['name']) . "</td>" . "<td>" . h($result['name_kana']) . "</td>" . "<td>" .h($result['email']) ."</td>" . "<td>" . h($result['password']) ."</td>" . "<td>" . '<a href="delete.php?id=' . h($result['id']) . '">[削除]</a>' . "</td>";
     $view .= "</tr>";
   }
 
@@ -49,7 +49,7 @@ if ($status==false) {
         <h1>登録ユーザー一覧</h1>
         <table>
             <tr>
-                <th>登録日時</th><th>事業所名</th><th>A型</th><th>B型</th><th>移行</th><th>その他</th><th>郵便番号</th><th>都道府県</th><th>市区町村</th><th>町名など</th><th>担当者名</th><th>担当者名カナ</th><th>E-mail</th><th>Password</th>
+                <th>登録日時</th><th>事業所名</th><th>A型</th><th>B型</th><th>移行</th><th>その他</th><th>郵便番号</th><th>都道府県</th><th>市区町村</th><th>町名など</th><th>担当者名</th><th>担当者名カナ</th><th>E-mail</th><th>password</th><th>削除ボタン</th>
             </tr>
             <tr>
                 <?= $view ?> <!--?php echo $view ?の省略記法 -->
