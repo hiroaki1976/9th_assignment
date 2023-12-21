@@ -1,12 +1,7 @@
 <?php
-//PHP:コード記述/修正の流れ
-//1. insert.phpの処理をマルっとコピー。
-//2. $id = $_POST["id"]を追加
-//3. SQL修正
-//   "UPDATE テーブル名 SET 変更したいカラムを並べる WHERE 条件"
-//   bindValueにも「id」の項目を追加
-//4. header関数"Location"を「select.php」に変更
 
+//0. function.phpを呼び出す
+require_once('function.php');
 
 //1. POSTデータ取得
 $jigyousyo = $_POST['jigyousyo'];
@@ -22,17 +17,10 @@ $name = $_POST['name']. "\n";
 $name_kana = $_POST['name_kana']. "\n";
 $email = $_POST['email']. "\n";
 $password1 = $_POST['password1']. "\n";
-// $password2 = $_POST['password2']. "\n";
-// $time = date('Y/m/d H:i:s') . "\n";
 $id = $_POST["id"];
 
 //2. DB接続します
-try {
-  //ID:'root', Password: xamppは 空白 ''
-  $pdo = new PDO('mysql:dbname=tsunagu;charset=utf8;host=localhost','root','');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+$pdo = db_conn();
 
 //3．データ登録SQL作成
 
@@ -69,9 +57,9 @@ $status = $stmt->execute();
 // 3-４．データ登録処理後
 if($status === false){
   //SQL実行時にエラーがある場合（エラーオブジェクト取得して表示）
-  $error = $stmt->errorInfo();
-  exit('ErrorMessage:'.$error[2]);
+  sql_error($stmt);
+  // $error = $stmt->errorInfo();
+  // exit('ErrorMessage:'.$error[2]);
 } else {
-  header('Location: kanri.php');
-    exit();
+  redirect('kanri.php');
 }

@@ -1,20 +1,16 @@
 <?php
-//0. funcs.phpを呼び出す
+//0. function.phpを呼び出す
 require_once('function.php');
+
 //1.  DB接続します
-try {
-  //ID:'root', Password: xamppは 空白 ''
-  $pdo = new PDO('mysql:dbname=tsunagu;charset=utf8;host=localhost','root','');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+$pdo = db_conn();
 
 //２．データ取得SQL作成
 $stmt = $pdo->prepare("SELECT * FROM gs_bm_table");
 $status = $stmt->execute();
 
 //３．データ表示
-$view="";
+$view = "";
 if ($status==false) {
     //execute（SQL実行時にエラーがある場合）
   $error = $stmt->errorInfo();

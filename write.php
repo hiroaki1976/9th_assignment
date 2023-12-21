@@ -1,14 +1,6 @@
 <?php
 session_start();
 
-/**
- * 1. index.phpのフォームの部分がおかしいので、ここを書き換えて、
- * insert.phpにPOSTでデータが飛ぶようにしてください。
- * 2. insert.phpで値を受け取ってください。
- * 3. 受け取ったデータをバインド変数に与えてください。
- * 4. index.phpフォームに書き込み、送信を行ってみて、実際にPhpMyAdminを確認してみてください！
- */
-
 //1. POSTデータ取得
 $jigyousyo = $_POST['jigyousyo']. "\n";
 $a_gata = isset($_POST['a_gata']) ? 'A型' . $_POST['a_gata'] : 'A型';
@@ -27,12 +19,8 @@ $password2 = $_POST['password2']. "\n";
 $time = date('Y/m/d H:i:s') . "\n";
 
 //2. DB接続します
-try {
-  //ID:'root', Password: xamppは 空白 ''
-  $pdo = new PDO('mysql:dbname=tsunagu;charset=utf8;host=localhost','root','');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+require_once('function.php');
+$pdo = db_conn();
 
 //3．データ登録SQL作成
 
@@ -100,7 +88,6 @@ $_SESSION['time'] = $time;
 
     <ul>
         <li><a href="read.php">確認する</a></li>
-        <li><a href="detail.php">更新する</a></li>
         <li><a href="index.php">戻る</a></li>
     </ul>
 </body>
