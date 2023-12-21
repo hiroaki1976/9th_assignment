@@ -73,6 +73,7 @@ ul li {
 
 /* kanri.php */
 table {
+    width: 95%;
     border-collapse:  collapse; /* セルの線を重ねる */
 }
 
@@ -84,3 +85,7 @@ th,td {
 th {
     background-color: lightblue;
 }
+
+td {
+    white-space: nowrap;
+  }
